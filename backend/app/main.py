@@ -68,9 +68,9 @@ async def add_user(_: Request, username: str):
 
 @app.get('/login')
 async def login(request: Request):
-    github = oauth.create_client('twitter')
+    client = oauth.create_client('twitter')
     redirect_uri = f'http://192.168.99.100/authorize'
-    return await github.authorize_redirect(request, redirect_uri)
+    return await client.authorize_redirect(request, redirect_uri)
 
 
 @app.get('/authorize')
