@@ -8,31 +8,10 @@ from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
 from tortoise.contrib.starlette import register_tortoise
 
-from .models import Users
+from . import settings
+from .routers import users
 
 logging.basicConfig(format='%(levelname)s: <%(pathname)s:%(lineno)d>\n> %(message)s')
-
-DB_CONFIG = {
-    'connections': {
-        'default': {
-            'engine': 'tortoise.backends.mysql',
-            'credentials': {
-                'host': 'db',
-                'port': '3306',
-                'user': 'root',
-                'password': os.environ['MYSQL_ROOT_PASSWORD'],
-                'database': 'wouldlist',
-            }
-        },
-    },
-    'apps': {
-        'models': {
-            'models': ['app.main'],
-            'default_connection': 'default',
-        }
-    }
-}
-SECRET_KEY = os.environ['SECRET_KEY']
 
 oauth = OAuth()
 # http://docs.authlib.org/en/latest/client/frameworks.html
@@ -52,33 +31,17 @@ oauth.register(
 
 app = FastAPI()
 
-origins = [
-    "http://localhost",
-    "http://localhost:3000",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=settings.ALLOW_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-register_tortoise(app, DB_CONFIG, generate_schemas=True)
-app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
-
-
-@app.get("/users")
-async def list_all(_: Request):
-    users = await Users.all()
-    return {"users": [str(user) for user in users]}
-
-
-@app.post("/users/add")
-async def add_user(_: Request, username: str):
-    user = await Users.create(username=username)
-    return {"user": str(user)}
+register_tortoise(app, settings.DB_CONFIG, generate_schemas=True)
+app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
+app.include_router(users.router, prefix='/users', tags=['users api'])
 
 
 @app.get('/login')
