@@ -1,8 +1,9 @@
-import os
 import logging
+import os
 
 from authlib.integrations.starlette_client import OAuth, RemoteApp
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from starlette.requests import Request
 from tortoise.contrib.starlette import register_tortoise
@@ -50,6 +51,20 @@ oauth.register(
 )
 
 app = FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 register_tortoise(app, DB_CONFIG, generate_schemas=True)
 app.add_middleware(SessionMiddleware, secret_key=SECRET_KEY)
 
