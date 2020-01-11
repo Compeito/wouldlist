@@ -1,3 +1,5 @@
+import {Configuration} from '@nuxt/types'
+
 export default {
   mode: 'spa',
   /*
@@ -46,7 +48,13 @@ export default {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {},
+  axios: {
+    baseURL: 'http://192.168.99.100',
+    credentials: true,
+    init(axios: any, ctx: any) {
+      axios.defaults.withCredentials = true
+    }
+  },
   /*
   ** Build configuration
   */
@@ -57,4 +65,4 @@ export default {
     extend(config, ctx) {
     }
   }
-}
+} as Configuration

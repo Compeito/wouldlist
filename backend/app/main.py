@@ -46,17 +46,22 @@ app.include_router(users.router, prefix='/users', tags=['users api'])
 
 @app.get('/login')
 async def login(request: Request):
-    client = oauth.create_client('twitter')
-    redirect_uri = f'http://192.168.99.100/authorize'
-    return await client.authorize_redirect(request, redirect_uri)
+    client: RemoteApp = oauth.create_client('twitter')
+    redirect_uri = f'http://localhost:3000/login/callback'
+    auth_url = await client.create_authorization_url(redirect_uri)
+    client.save_authorize_data(request, redirect_uri=redirect_uri, **auth_url)
+    return auth_url
 
 
-@app.get('/authorize')
-async def authorize(request: Request):
+@app.post('/login/callback')
+async def authorize(request: Request, oauth_verifier: str, oauth_token: str):
     client: RemoteApp = oauth.create_client('twitter')
     client.access_token_params = {
-        'verifier': request.query_params['oauth_verifier']
+        'verifier': oauth_verifier,
     }
-    token = await client.authorize_access_token(request)
-    resp = await client.get('account/verify_credentials.json', token=token)
-    return resp.json()
+    try:
+        token = await client.authorize_access_token(request)
+        resp = await client.get('account/verify_credentials.json', token=token)
+        return resp.json()
+    except Exception as e:
+        return {'error': str(e)}
