@@ -40,7 +40,7 @@ app.add_middleware(
 )
 
 register_tortoise(app, settings.DB_CONFIG, generate_schemas=True)
-app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
+app.add_middleware(SessionMiddleware, same_site='none', secret_key=settings.SECRET_KEY)
 app.include_router(users.router, prefix='/users', tags=['users api'])
 
 

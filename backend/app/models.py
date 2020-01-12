@@ -1,9 +1,11 @@
 from tortoise import fields, models
 
 
-class Users(models.Model):
+class User(models.Model):
     id = fields.IntField(pk=True)
-    username = fields.CharField(max_length=20)
+    name = fields.CharField(max_length=50)
+    screen_name = fields.CharField(max_length=20)
+    description = fields.TextField()
 
     def __str__(self) -> str:
-        return f"User {self.id}: {self.username}"
+        return f'{self.name}(@{self.screen_name})'

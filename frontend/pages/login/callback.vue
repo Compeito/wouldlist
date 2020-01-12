@@ -10,7 +10,7 @@ import {Component, Vue} from 'nuxt-property-decorator'
 @Component
 export default class callback extends Vue {
   mounted() {
-    this.$axios.put('/login/callback' + location.search, null, {withCredentials: true})
+    this.$axios.post('/login/callback' + location.search, null, {withCredentials: true})
       .then((result) => {
         console.log(result)
       })
