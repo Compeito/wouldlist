@@ -2,6 +2,7 @@ import logging
 import os
 
 from authlib.integrations.starlette_client import OAuth, RemoteApp
+from authlib.jose import JsonWebToken
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from starlette.middleware.sessions import SessionMiddleware
@@ -44,6 +45,11 @@ app.add_middleware(SessionMiddleware, same_site='none', secret_key=settings.SECR
 app.include_router(users.router, prefix='/users', tags=['users api'])
 
 
+def get_token(user_id: int):
+    jwt = JsonWebToken(['HS256'])
+    return jwt.encode({'alg': 'HS256', 'typ': 'JWT'}, {'user_id': user_id}, settings.SECRET_KEY)
+
+
 @app.get('/login')
 async def login(request: Request):
     client: RemoteApp = oauth.create_client('twitter')
@@ -59,9 +65,6 @@ async def authorize(request: Request, oauth_verifier: str, oauth_token: str):
     client.access_token_params = {
         'verifier': oauth_verifier,
     }
-    try:
-        token = await client.authorize_access_token(request)
-        resp = await client.get('account/verify_credentials.json', token=token)
-        return resp.json()
-    except Exception as e:
-        return {'error': str(e)}
+    token = await client.authorize_access_token(request)
+    resp = await client.get('account/verify_credentials.json', token=token)
+    return {"access_token": get_token(resp.json()['id']), "token_type": "bearer"}
