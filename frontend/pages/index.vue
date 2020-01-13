@@ -1,6 +1,8 @@
 <template>
   <div class="content">
-    <p>{{ message }}</p>
+    <pre>
+      <code>{{ message }}</code>
+    </pre>
     <p>
       <nuxt-link to="/login">login</nuxt-link>
     </p>
@@ -9,6 +11,7 @@
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator'
+
 import auth from '~/plugins/auth'
 
 @Component
@@ -18,7 +21,13 @@ export default class index extends Vue {
 
   async mounted() {
     const user = await auth();
-    console.log(user?.getIdToken());
+    if (user) {
+      const token = await user.getIdToken();
+      const me = await this.$axios.get('/me', {
+        headers: {'Authorization': `Bearer ${token}`}
+      });
+      this.message = JSON.stringify(me.data)
+    }
   }
 }
 </script>

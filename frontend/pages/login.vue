@@ -6,7 +6,8 @@
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator'
-import firebase from 'firebase'
+
+import firebase from '~/plugins/firebase'
 import auth from "~/plugins/auth";
 
 @Component

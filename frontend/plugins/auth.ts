@@ -1,7 +1,8 @@
+import {User} from 'firebase/app'
 import firebase from '~/plugins/firebase'
 
 function auth() {
-  return new Promise<firebase.User | null>((resolve, reject) => {
+  return new Promise<User | null>((resolve, reject) => {
     firebase.auth().onAuthStateChanged((user) => {
       resolve(user)
     })
