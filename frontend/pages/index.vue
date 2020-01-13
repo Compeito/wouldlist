@@ -9,6 +9,7 @@
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator'
+import auth from '~/plugins/auth'
 
 @Component
 export default class index extends Vue {
@@ -16,8 +17,8 @@ export default class index extends Vue {
   message: string = "loading...";
 
   async mounted() {
-    const response = await this.$axios.get('/users');
-    this.message = JSON.stringify(response.data)
+    const user = await auth();
+    console.log(user?.getIdToken());
   }
 }
 </script>
