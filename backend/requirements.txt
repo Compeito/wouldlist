@@ -1,6 +1,3 @@
 tortoise-orm
 aiomysql
-
-authlib
-httpx==0.7.8
-itsdangerous
+firebase-admin
