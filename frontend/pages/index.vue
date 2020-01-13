@@ -23,7 +23,7 @@ export default class index extends Vue {
     const user = await auth();
     if (user) {
       const token = await user.getIdToken();
-      const me = await this.$axios.get('/me', {
+      const me = await this.$axios.get('/users/me', {
         headers: {'Authorization': `Bearer ${token}`}
       });
       this.message = JSON.stringify(me.data)

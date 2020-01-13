@@ -16,7 +16,8 @@ export default class login extends Vue {
 
   async login() {
     const provider = new firebase.auth.TwitterAuthProvider();
-    await firebase.auth().signInWithPopup(provider);
+    const response = await firebase.auth().signInWithPopup(provider);
+    console.log(response.credential);
     const user = await auth();
     console.log(user)
   }

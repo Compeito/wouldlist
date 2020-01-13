@@ -2,8 +2,9 @@ from tortoise import fields, models
 
 
 class User(models.Model):
-    id = fields.IntField(pk=True)
+    uid = fields.CharField(pk=True, max_length=50)
     name = fields.CharField(max_length=50)
+    picture = fields.CharField(max_length=255)
     screen_name = fields.CharField(max_length=20)
     description = fields.TextField()
 
