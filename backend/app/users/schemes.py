@@ -3,6 +3,11 @@ from typing import Dict, List
 from pydantic import BaseModel, AnyUrl
 
 
+class FirebaseIdentities(BaseModel):
+    identities: Dict[str, List[str]]
+    sign_in_provider: str
+
+
 class FirebaseToken(BaseModel):
     name: str
     picture: AnyUrl
@@ -13,6 +18,5 @@ class FirebaseToken(BaseModel):
     sub: str
     iat: int
     exp: int
-    firebase: Dict[str, List[str]]
-    sign_in_provider: str
+    firebase: FirebaseIdentities
     uid: str

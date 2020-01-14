@@ -13,5 +13,5 @@ def get_token(authorization: str = Header(None)) -> FirebaseToken:
         raise HTTPException(status_code=403, detail='トークンが不正です')
 
 
-def get_user(token=Depends(get_token)):
+def get_user(token: FirebaseToken = Depends(get_token)):
     pass
