@@ -20,3 +20,10 @@ class FirebaseToken(BaseModel):
     exp: int
     firebase: FirebaseIdentities
     uid: str
+
+
+class UserScheme(BaseModel):
+    uid: str
+    name: str
+    photo_url: AnyUrl
+    screen_name: str
