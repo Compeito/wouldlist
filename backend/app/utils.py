@@ -1,11 +1,11 @@
 import logging
-from typing import Optional, Dict, Union, Tuple
+from typing import Dict, Union, Tuple
 
 logger = logging.getLogger('uvicorn')
 
 
 class SerializableMixin:
-    def get_serialize_fields(self) -> Optional[Tuple[str, ...]]:
+    def get_serialize_fields(self) -> Tuple[str, ...]:
         raise NotImplementedError()
 
     def json(self) -> Dict[str, Union[str, int]]:

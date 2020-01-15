@@ -14,7 +14,7 @@ async def join(
     token: FirebaseToken = Depends(get_token),
     access_token: str = Body(None, alias='accessToken'),
     secret: str = Body(None),
-):
+) -> dict:
     firebase_user = firebase_auth.get_user(token.uid)
     user, created = await User.get_or_create(None, defaults=dict(
         name=firebase_user.display_name,
@@ -27,5 +27,5 @@ async def join(
 
 
 @router.get('/me')
-async def me(user: User = Depends(get_user)):
+async def me(user: User = Depends(get_user)) -> dict:
     return user.json()
