@@ -11,9 +11,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from 'nuxt-property-decorator'
-
-import auth from '~/plugins/auth'
+import {Component, Vue} from "nuxt-property-decorator";
 
 @Component
 export default class index extends Vue {
@@ -21,14 +19,8 @@ export default class index extends Vue {
   message: string = "loading...";
 
   async mounted() {
-    const user = await auth();
-    if (user) {
-      const token = await user.getIdToken();
-      const me = await this.$axios.get('/users/me', {
-        headers: {'Authorization': `Bearer ${token}`}
-      });
-      this.message = JSON.stringify(me.data, null, 2)
-    }
+    const me = await this.$axios.get("/users/me");
+    this.message = JSON.stringify(me.data, null, 2);
   }
 }
 </script>

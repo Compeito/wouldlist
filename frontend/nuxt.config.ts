@@ -1,4 +1,4 @@
-import {Configuration} from '@nuxt/types'
+import {Configuration} from "@nuxt/types";
 
 export default {
   mode: 'spa',
@@ -28,8 +28,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/firebase',
-    '~/plugins/auth'
+    "~/plugins/firebase",
+    "~/plugins/auth",
+    "~/plugins/axios",
   ],
   /*
   ** Nuxt.js dev-modules
@@ -52,11 +53,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://192.168.99.100',
-    credentials: true,
-    init(axios: any, ctx: any) {
-      axios.defaults.withCredentials = true
-    }
+    baseURL: "http://192.168.99.100",
   },
   /*
   ** Build configuration
