@@ -23,9 +23,9 @@ async def join(
         access_token=access_token,
         access_secret=secret,
     ), uid=token.uid)
-    return {'user': user, 'isCreated': created}
+    return {'user': user.json(), 'isCreated': created}
 
 
 @router.get('/me')
 async def me(user: User = Depends(get_user)):
-    return user
+    return user.json()
