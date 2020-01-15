@@ -1,4 +1,3 @@
-import tortoise
 from fastapi import Depends, Header, HTTPException
 from firebase_admin import auth as firebase_auth
 
@@ -18,7 +17,10 @@ def get_token(authorization: str = Header(None)) -> FirebaseToken:
 
 
 async def get_user(token: FirebaseToken = Depends(get_token)) -> User:
-    try:
-        return await User.get(uid=token.uid)
-    except tortoise.exceptions.DoesNotExist:
-        raise HTTPException(status_code=401, detail='ユーザーが存在しません')
+    firebase_user = firebase_auth.get_user(token.uid)
+    user, _ = await User.get_or_create(None, defaults=dict(
+        name=firebase_user.display_name,
+        screen_name=firebase_user._data.get('screenName'),
+        photo_url=firebase_user.photo_url,
+    ), uid=token.uid)
+    return user

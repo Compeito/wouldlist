@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <b-button @click="login" color="skyblue">login</b-button>
+    <b-button @click="logout" color="skyblue">logout</b-button>
   </div>
 </template>
 
@@ -11,9 +11,8 @@ import firebase from '~/plugins/firebase'
 
 @Component
 export default class login extends Vue {
-  async login() {
-    const provider = new firebase.auth.TwitterAuthProvider();
-    await firebase.auth().signInWithPopup(provider);
+  async logout() {
+    await firebase.auth().signOut();
   }
 }
 </script>

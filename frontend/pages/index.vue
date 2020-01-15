@@ -4,6 +4,9 @@
     <p>
       <nuxt-link to="/login">login</nuxt-link>
     </p>
+    <p>
+      <nuxt-link to="/logout">logout</nuxt-link>
+    </p>
   </div>
 </template>
 
