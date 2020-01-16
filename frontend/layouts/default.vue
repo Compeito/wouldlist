@@ -18,16 +18,16 @@
         </a>
 
         <div class="navbar-burger">
-          <span/>
-          <span/>
-          <span/>
+          <span />
+          <span />
+          <span />
         </div>
       </div>
     </nav>
 
     <section class="columns">
       <div class="container column is-8">
-        <nuxt/>
+        <nuxt />
       </div>
     </section>
   </div>
