@@ -1,8 +1,8 @@
 <template>
   <div class="content">
-    <b-button color="skyblue" @click="logout">
+    <sui-button @click="logout">
       logout
-    </b-button>
+    </sui-button>
   </div>
 </template>
 

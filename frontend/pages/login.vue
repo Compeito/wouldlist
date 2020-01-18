@@ -1,8 +1,8 @@
 <template>
   <div class="content">
-    <b-button color="skyblue" @click="login">
+    <sui-button color="blue" @click="login">
       login
-    </b-button>
+    </sui-button>
   </div>
 </template>
 
@@ -13,9 +13,9 @@ import firebase from '~/plugins/firebase'
 
 @Component
 export default class login extends Vue {
-  async login () {
+  login () {
     const provider = new firebase.auth.TwitterAuthProvider()
-    await firebase.auth().signInWithPopup(provider)
+    firebase.auth().signInWithRedirect(provider)
   }
 }
 </script>

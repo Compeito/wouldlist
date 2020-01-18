@@ -3,22 +3,21 @@
     <sui-menu fixed="top" inverted>
       <sui-container>
         <sui-menu-item header>
-          Project Name
+          <nuxt-link to="/">
+            WouldList
+          </nuxt-link>
         </sui-menu-item>
         <sui-menu-item link href="#">
           Home
         </sui-menu-item>
-        <sui-dropdown item text="Dropdown">
+        <sui-dropdown item text="Account Menu">
           <sui-dropdown-menu>
-            <sui-dropdown-item>New</sui-dropdown-item>
-            <sui-dropdown-item>Open... <span class="description">ctrl + o</span></sui-dropdown-item>
-            <sui-dropdown-item>Save as... <span class="description">ctrl + s</span></sui-dropdown-item>
-            <sui-dropdown-item>Rename <span class="description">ctrl + r</span></sui-dropdown-item>
-            <sui-dropdown-item>Make a copy</sui-dropdown-item>
-            <sui-dropdown-item><sui-icon name="folder" />Move to folder</sui-dropdown-item>
-            <sui-dropdown-item><sui-icon name="trash" />Move to trash</sui-dropdown-item>
-            <sui-dropdown-divider />
-            <sui-dropdown-item>Download as...</sui-dropdown-item>
+            <nuxt-link to="/login" class="item">
+              login
+            </nuxt-link>
+            <nuxt-link to="/logout" class="item">
+              logout
+            </nuxt-link>
           </sui-dropdown-menu>
         </sui-dropdown>
       </sui-container>
