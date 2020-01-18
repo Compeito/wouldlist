@@ -2,13 +2,10 @@ import { User } from 'firebase/app'
 import firebase from '~/plugins/firebase'
 
 function auth () {
-  return new Promise<User>((resolve, reject) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  return new Promise<User | null>((resolve, reject) => {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        resolve(user)
-      } else {
-        reject(user)
-      }
+      resolve(user)
     })
   })
 }
