@@ -11,6 +11,9 @@
         <nuxt-link to="/logout" class="item">
           logout
         </nuxt-link>
+        <nuxt-link to="/design" class="item">
+          design
+        </nuxt-link>
       </sui-container>
     </sui-menu>
     <div class="main">
