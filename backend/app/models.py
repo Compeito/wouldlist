@@ -13,7 +13,7 @@ class User(SerializableMixin, models.Model):
     photo_url = fields.CharField(max_length=255)
 
     def get_serialize_fields(self) -> Tuple[str, ...]:
-        return 'uid', 'name', 'photo_url', 'screen_name'
+        return 'name', 'photo_url', 'screen_name'
 
     def __str__(self) -> str:
         return f'{self.name}(@{self.screen_name})'
