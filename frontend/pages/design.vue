@@ -1,6 +1,6 @@
 <template>
   <sui-container>
-    <sui-card-group :items-per-row="3" class="doubling">
+    <sui-card-group :items-per-row="3" stackable>
       <template v-for="(item, i) in items">
         <nuxt-link :key="i" :to="`/todo?id=${item.title}`" class="ui card raised link">
           <sui-card-content>
@@ -26,23 +26,23 @@ export default class design extends Vue {
   items: TodoItem[] = [
     {
       title: 'hoge1',
-      text: 'aaaaaaaaaaaa'
+      text: 'ほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふが'
     },
     {
       title: 'hoge2',
-      text: 'aaaaaaaaaaaa'
+      text: 'ほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふが'
     },
     {
       title: 'hoge3',
-      text: 'aaaaaaaaaaaa'
+      text: 'ほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふが'
     },
     {
       title: 'hoge4',
-      text: 'aaaaaaaaaaaa'
+      text: 'ほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふが'
     },
     {
       title: 'hoge5',
-      text: 'aaaaaaaaaaaa'
+      text: 'ほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふがほげほげふがふが'
     }
   ]
 }
