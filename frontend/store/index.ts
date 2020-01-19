@@ -1,16 +1,15 @@
-import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators'
+import Vue from 'vue'
 
-@Module
-export default class Posts extends VuexModule {
-  count: number = 0
+class Counter {
+  private _count: number = 0
 
-  @Mutation
-  increment (x: number) {
-    this.count = x
+  get count () {
+    return this._count
   }
 
-  @Action({ commit: 'increment' })
-  addOne () {
-    return 1
+  public increment (): void {
+    this._count++
   }
 }
+
+export default Vue.observable(new Counter())

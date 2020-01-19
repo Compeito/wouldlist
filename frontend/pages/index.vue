@@ -5,16 +5,17 @@
 </template>
 
 <script lang="ts">
-import { Component } from 'nuxt-property-decorator'
-import PreloadVue from '~/components/PreloadVue'
+import { Context } from '@nuxt/types'
+import { Component, Vue } from 'nuxt-property-decorator'
 
 @Component
-export default class index extends PreloadVue {
-  message: string = 'loading...';
+export default class index extends Vue {
+  message: string = 'loading...'
 
-  async preload () {
-    const response = await this.$axios.get('/users/me')
-    this.message = JSON.stringify(response.data, null, 2)
+  async asyncData (context: Context) {
+    const response = await context.$axios.get('/users/me')
+    const message = JSON.stringify(response.data, null, 2)
+    return { message }
   }
 }
 </script>
