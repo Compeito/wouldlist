@@ -1,6 +1,5 @@
 <template>
   <sui-container text>
-    test
   </sui-container>
 </template>
 

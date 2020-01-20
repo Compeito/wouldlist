@@ -14,7 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
-          npm -g install yarn
           yarn
           yarn lint
         working-directory: ./frontend
