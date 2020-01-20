@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, Union, Tuple
+from typing import Dict, Union, Tuple, Any
 
 logger = logging.getLogger('uvicorn')
 
@@ -8,11 +8,11 @@ class SerializableMixin:
     def get_serialize_fields(self) -> Tuple[str, ...]:
         raise NotImplementedError()
 
-    def json(self) -> Dict[str, Union[str, int]]:
+    def json(self) -> Dict[str, Any]:
         fields = self.get_serialize_fields()
         json = {}
         for field in fields:
-            value: Union[str, int, SerializableMixin] = getattr(self, field)
+            value = getattr(self, field)
             if isinstance(value, SerializableMixin):
                 json[field] = value.json()
             else:
