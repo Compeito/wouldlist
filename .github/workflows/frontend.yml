@@ -1,0 +1,20 @@
+name: Frontend
+
+on:
+  push:
+    paths:
+      - "frontend/**.ts"
+      - "frontend/**.js"
+      - "frontend/**.vue"
+
+jobs:
+  lint:
+    name: eslint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - run: |
+          npm -g install yarn
+          yarn
+          yarn lint
+        working-directory: ./frontend
