@@ -3,7 +3,7 @@ name: Backend
 on:
   push:
     paths:
-      - "./backend/**"
+      - "backend/**.py"
 
 jobs:
   build-and-test:
