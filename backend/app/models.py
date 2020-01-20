@@ -19,11 +19,10 @@ class User(SerializableMixin, models.Model):
         return f'{self.name}(@{self.screen_name})'
 
 
-class Todo(SerializableMixin, models.Model):
-    id = fields.IntField(pk=True)
+class Item(SerializableMixin, models.Model):
+    uid = fields.UUIDField(pk=True)
     user = fields.ForeignKeyField('models.User')
-    title = fields.CharField(max_length=100)
-    text = fields.TextField()
+    text = fields.CharField(max_length=200)
 
     def get_serialize_fields(self) -> Tuple[str, ...]:
         return 'id', 'title', 'text'

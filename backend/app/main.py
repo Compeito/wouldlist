@@ -5,6 +5,7 @@ from tortoise.contrib.starlette import register_tortoise
 
 from app import settings
 from app.users.routers import router as users_router
+from app.items.routers import router as items_router
 
 app = FastAPI()
 
@@ -20,4 +21,5 @@ app.add_middleware(
 
 register_tortoise(app, settings.DB_CONFIG, generate_schemas=True)
 
-app.include_router(users_router, prefix='/users', tags=['users api'])
+app.include_router(users_router, prefix='/users')
+app.include_router(items_router, prefix='/items')

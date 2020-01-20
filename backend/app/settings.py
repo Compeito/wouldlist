@@ -1,5 +1,7 @@
 import os
 
+DEBUG = os.environ['LOG_LEVEL'].lower() == 'debug'
+
 SECRET_KEY = os.environ['SECRET_KEY']
 
 DB_CONFIG = {
