@@ -1,14 +1,17 @@
-name: Docker Image CI
+name: Backend
 
-on: [push]
+on:
+  push:
+    paths:
+      - "./backend/**"
 
 jobs:
-  build:
+  build-and-test:
+    name: dockerビルドとmypyによるテスト
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: mypyテスト
-      run: |
-        docker build --tag compeito/wouldlist-api
-        docker run compeito/wouldlist-api mypy app
-      working-directory: ./backend
+      - uses: actions/checkout@v1
+      - run: |
+          docker build --tag compeito/wouldlist-api .
+          docker run compeito/wouldlist-api mypy app
+        working-directory: ./backend

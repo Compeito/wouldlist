@@ -27,3 +27,6 @@ class Todo(SerializableMixin, models.Model):
 
     def get_serialize_fields(self) -> Tuple[str, ...]:
         return 'id', 'title', 'text'
+
+    def __str__(self) -> str:
+        return f'{self.user.name}さんのTODO: {self.title}'
