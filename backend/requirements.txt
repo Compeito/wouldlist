@@ -1,4 +1,4 @@
-tortoise-orm
-aiomysql
+SQLAlchemy
+mysqlclient
 firebase-admin
 mypy

@@ -1,28 +1,37 @@
 from typing import Tuple
 
-from tortoise import fields, models
+from sqlalchemy import Column, ForeignKey, String
+from sqlalchemy.orm import relationship
 
-from app.utils import SerializableMixin
+from .utils import get_uuid, SerializableMixin
+from .db import Base
 
 
-class User(SerializableMixin, models.Model):
-    uid = fields.CharField(pk=True, max_length=50)
+class User(SerializableMixin, Base):
+    __tablename__ = "users"
 
-    name = fields.CharField(max_length=50)
-    screen_name = fields.CharField(max_length=20)
-    photo_url = fields.CharField(max_length=255)
+    uid = Column(String, primary_key=True, index=True)
+    name = Column(String)
+    screen_name = Column(String)
+    photo_url = Column(String)
+
+    items = relationship('Item', back_populates='user')
 
     def get_serialize_fields(self) -> Tuple[str, ...]:
-        return 'name', 'photo_url', 'screen_name'
+        return 'name', 'photo_url', 'screen_name', 'items'
 
     def __str__(self) -> str:
         return f'{self.name}(@{self.screen_name})'
 
 
-class Item(SerializableMixin, models.Model):
-    uid = fields.UUIDField(pk=True)
-    user = fields.ForeignKeyField('models.User')
-    text = fields.CharField(max_length=200)
+class Item(SerializableMixin, Base):
+    __tablename__ = 'items'
+
+    uid = Column(String, primary_key=True, index=True, default=get_uuid)
+    text = Column(String)
+
+    user_id = Column(String, ForeignKey('users.uid'))
+    user = relationship('User', back_populates='items')
 
     def get_serialize_fields(self) -> Tuple[str, ...]:
-        return 'id', 'title', 'text'
+        return 'user', 'text'

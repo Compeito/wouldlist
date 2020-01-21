@@ -1,7 +1,12 @@
 import logging
-from typing import Dict, Union, Tuple, Any
+import uuid
+from typing import Dict, Tuple, Any
 
 logger = logging.getLogger('uvicorn')
+
+
+def get_uuid():
+    return uuid.uuid4().hex
 
 
 class SerializableMixin:

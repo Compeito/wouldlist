@@ -1,7 +1,9 @@
 from fastapi import Depends, Header, HTTPException
 from firebase_admin import auth as firebase_auth
+from sqlalchemy.orm import Session
 
 from app.models import User
+from app.depends import get_db
 from app.users.schemes import FirebaseToken
 
 
@@ -16,11 +18,21 @@ def get_token(authorization: str = Header(None)) -> FirebaseToken:
         raise HTTPException(status_code=401, detail='トークンが不正です')
 
 
-async def get_user(token: FirebaseToken = Depends(get_token)) -> User:
+async def get_user(token: FirebaseToken = Depends(get_token), db: Session = Depends(get_db)) -> User:
     firebase_user = firebase_auth.get_user(token.uid)
-    user, _ = await User.get_or_create(None, defaults=dict(
-        name=firebase_user.display_name,
-        screen_name=firebase_user._data.get('screenName'),
-        photo_url=firebase_user.photo_url,
-    ), uid=token.uid)
+    user = db.query(User).filter(
+        User.name == firebase_user.display_name,
+        User.screen_name == firebase_user._data.get('screenName'),
+        User.photo_url == firebase_user.photo_url,
+    ).first()
+    if user is None:
+        user = User(
+            uid=token.uid,
+            name=firebase_user.display_name,
+            screen_name=firebase_user._data.get('screenName'),
+            photo_url=firebase_user.photo_url,
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
     return user
