@@ -5,7 +5,7 @@ from typing import Dict, Tuple, Any
 logger = logging.getLogger('uvicorn')
 
 
-def get_uuid():
+def get_uuid() -> str:
     return uuid.uuid4().hex
 
 
