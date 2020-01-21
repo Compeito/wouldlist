@@ -10,10 +10,10 @@ from .db import Base
 class User(SerializableMixin, Base):
     __tablename__ = "users"
 
-    uid = Column(String, primary_key=True, index=True)
-    name = Column(String)
-    screen_name = Column(String)
-    photo_url = Column(String)
+    uid = Column(String(50), primary_key=True, index=True)
+    name = Column(String(50))
+    screen_name = Column(String(20))
+    photo_url = Column(String(255))
 
     items = relationship('Item', back_populates='user')
 
@@ -27,10 +27,10 @@ class User(SerializableMixin, Base):
 class Item(SerializableMixin, Base):
     __tablename__ = 'items'
 
-    uid = Column(String, primary_key=True, index=True, default=get_uuid)
-    text = Column(String)
+    uid = Column(String(50), primary_key=True, index=True, default=get_uuid)
+    text = Column(String(200))
 
-    user_id = Column(String, ForeignKey('users.uid'))
+    user_id = Column(String(50), ForeignKey('users.uid'))
     user = relationship('User', back_populates='items')
 
     def get_serialize_fields(self) -> Tuple[str, ...]:
