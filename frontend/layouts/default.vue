@@ -27,6 +27,6 @@ body {
   background-color: #eeeeee;
 }
 .main {
-  margin-top: 7em;
+  padding-top: 7em;
 }
 </style>

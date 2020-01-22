@@ -34,4 +34,4 @@ class Item(SerializableMixin, Base):
     user = relationship('User', back_populates='items')
 
     def get_serialize_fields(self) -> Tuple[str, ...]:
-        return 'user', 'text'
+        return 'uid', 'text'
