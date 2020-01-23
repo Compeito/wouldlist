@@ -18,7 +18,7 @@ class User(SerializableMixin, Base):
     items = relationship('Item', back_populates='user')
 
     def get_serialize_fields(self) -> Tuple[str, ...]:
-        return 'name', 'photo_url', 'screen_name', 'items'
+        return 'name', 'photo_url', 'screen_name'
 
     def __str__(self) -> str:
         return f'{self.name}(@{self.screen_name})'

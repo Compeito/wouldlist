@@ -25,4 +25,4 @@ async def all(db: Session = Depends(get_db)) -> dict:
 
 @router.get('/me')
 async def me(user: User = Depends(get_user)) -> dict:
-    return user.json()
+    return user.json(('items',))

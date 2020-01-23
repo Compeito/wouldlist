@@ -18,8 +18,8 @@ class SerializableMixin:
         s = snake_case_str.split('_')
         return s[0] + ''.join(x.title() for x in s[1:])
 
-    def json(self) -> Dict[str, Any]:
-        fields = self.get_serialize_fields()
+    def json(self, fields_extra: Tuple[str, ...] = ()) -> Dict[str, Any]:
+        fields = self.get_serialize_fields() + fields_extra
         json = {}
         for field in fields:
             value = getattr(self, field)

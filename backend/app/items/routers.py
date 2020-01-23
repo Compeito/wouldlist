@@ -11,10 +11,10 @@ router = APIRouter()
 
 @router.get('')
 async def index(uid: str, db: Session = Depends(get_db)) -> dict:
-    item = db.query(Item).filter(uid=uid).first()
+    item = db.query(Item).filter(Item.uid == uid).first()
     if item is None:
         raise HTTPException(status_code=404, detail='アイテムが存在しません')
-    return {'item': item.json()}
+    return {'item': item.json(('user',))}
 
 
 @router.post('/create')
@@ -28,7 +28,7 @@ async def create(text: str, user: User = Depends(get_user), db: Session = Depend
 
 @router.delete('/delete')
 async def delete(uid: str, user: User = Depends(get_user), db: Session = Depends(get_db)) -> dict:
-    item = db.query(Item).filter(uid=uid).first()
+    item = db.query(Item).filter(Item.uid == uid).first()
     if item is None:
         raise HTTPException(status_code=404, detail='アイテムが存在しません')
 
