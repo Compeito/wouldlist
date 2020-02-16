@@ -1,13 +1,31 @@
+import { Context, Plugin } from '@nuxt/types'
+import { Vue } from 'nuxt-property-decorator'
 import { User } from 'firebase/app'
-import firebase from '~/plugins/firebase'
 
-function auth () {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  return new Promise<User | null>((resolve, reject) => {
-    firebase.auth().onAuthStateChanged((user) => {
-      resolve(user)
-    })
+declare module 'vue/types/vue' {
+  interface Vue {
+    $user: User | null
+  }
+}
+
+declare module '@nuxt/types' {
+  interface Context {
+    $user: User | null
+  }
+}
+
+const authPlugin: Plugin = (context: Context) => {
+  return new Promise<void>((resolve, reject) => {
+    try {
+      context.$firebase.auth().onAuthStateChanged((user) => {
+        Vue.prototype.$user = user
+        context.$user = user
+        resolve()
+      })
+    } catch (e) {
+      reject(e)
+    }
   })
 }
 
-export default auth
+export default authPlugin

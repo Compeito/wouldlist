@@ -36,7 +36,7 @@ export default class New extends Vue {
     }
     this.isLoading = true
     const response: { data: { item: Item } } = await this.$axios.post(`/items/create?text=${this.text}`)
-    this.$router.push(`/view?uid=${response.data.item.uid}`)
+    this.$router.push(`/item?uid=${response.data.item.uid}`)
   }
 }
 </script>
