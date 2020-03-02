@@ -1,8 +1,8 @@
 <template>
   <sui-container text>
     <h1 class="ui center aligned icon header">
-      <sui-image src="https://github.com/Compeito.png" circular />
-      <sui-header-content>Compeitoのやってほしいことリスト</sui-header-content>
+      <sui-image src="https://github.com/mkizka.png" circular />
+      <sui-header-content>mkizkaのやってほしいことリスト</sui-header-content>
     </h1>
     <sui-divider hidden class="section" />
     <sui-card-group :items-per-row="3" stackable>

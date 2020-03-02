@@ -9,7 +9,7 @@ volumes:
 services:
   backend:
     build: backend
-    image: compeito/wouldlist-api
+    image: mkizka/wouldlist-api
     container_name: wouldlist-api
     command: /start-reload.sh
     env_file: .env
@@ -22,7 +22,7 @@ services:
     restart: always
   frontend:
     build: frontend
-    image: compeito/wouldlist
+    image: mkizka/wouldlist
     container_name: wouldlist
     command: yarn dev
     env_file: .env

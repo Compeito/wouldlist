@@ -12,6 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: |
-          docker build --tag compeito/wouldlist-api .
-          docker run compeito/wouldlist-api mypy app
+          docker build --tag mkizka/wouldlist-api .
+          docker run mkizka/wouldlist-api mypy app
         working-directory: ./backend
