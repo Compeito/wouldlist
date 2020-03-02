@@ -13,4 +13,5 @@ DB_URL = 'mysql+mysqldb://{user}:{password}@{host}/{database}?charset=utf8'.form
 
 ALLOW_ORIGINS = [
     "http://localhost:3000",
+    "http://192.168.99.100:3000",
 ]

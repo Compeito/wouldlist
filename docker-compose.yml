@@ -2,9 +2,12 @@ version: '3'
 
 volumes:
   db_data:
+  node_modules:
+  nuxt_build:
+  nuxt_dist:
 
 services:
-  api:
+  backend:
     build: backend
     image: compeito/wouldlist-api
     container_name: wouldlist-api
@@ -16,6 +19,18 @@ services:
       - ./backend:/app
     depends_on:
       - db
+    restart: always
+  frontend:
+    build: frontend
+    image: compeito/wouldlist
+    container_name: wouldlist
+    command: yarn dev
+    env_file: .env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - node_modules:/app/node_modules
     restart: always
   db:
     image: mysql:5.7
